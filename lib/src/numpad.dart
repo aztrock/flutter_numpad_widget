@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import 'numpad_controller.dart';
 
@@ -18,16 +20,18 @@ class Numpad extends StatelessWidget {
   final double height;
   final double width;
   final NumpadController controller;
+  final isClearButtonEnabled;
 
   Numpad({
     Key key,
     @required this.controller,
     this.buttonColor,
-    this.textColor,
+    this.textColor = const Color.fromARGB(255, 140, 151, 161),
     this.innerPadding = 4,
     this.buttonTextSize = 30,
     this.height = double.infinity,
     this.width = double.infinity,
+    this.isClearButtonEnabled = false,
   }) : super(key: key);
 
   EdgeInsetsGeometry _buttonPadding() {
@@ -40,17 +44,27 @@ class Numpad extends StatelessWidget {
     if (icon != null) {
       effectiveChild = icon;
     } else {
-      effectiveChild = Text(
-        displayNum.toString(),
-        style: TextStyle(fontSize: buttonTextSize, color: textColor),
+      effectiveChild = Center(
+        child: Text(
+          displayNum.toString(),
+          style: TextStyle(fontSize: buttonTextSize, color: textColor),
+        ),
       );
     }
     return Expanded(
       child: Container(
         padding: _buttonPadding(),
-        child: RaisedButton(
+        child: NeumorphicButton(
           child: effectiveChild,
-          color: buttonColor,
+          minDistance: 5,
+          // pressed: true,
+          // drawSurfaceAboveChild: false,
+          // provideHapticFeedback: true,
+          style: NeumorphicStyle(
+            depth: 0,
+            // shape: NeumorphicShape.concave
+          ),
+          // color: buttonColor,
           onPressed: () => controller.parseInput(passNum),
         ),
       ),
@@ -76,23 +90,26 @@ class Numpad extends StatelessWidget {
     return Expanded(
       child: Container(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            _buildNumButton(
-                context: context,
-                displayNum: -1,
-                icon: Icon(
-                  Icons.backspace,
-                  size: buttonTextSize,
-                )),
-            _buildNumButton(context: context, displayNum: 0),
-            _buildNumButton(
+            isClearButtonEnabled 
+            ?_buildNumButton(
                 context: context,
                 displayNum: -2,
                 icon: Icon(
                   Icons.clear,
                   size: buttonTextSize,
+                ))
+            :Expanded(child: Container(),),
+            _buildNumButton(context: context, displayNum: 0),
+            _buildNumButton(
+                context: context,
+                displayNum: -1,
+                icon: Icon(
+                  MaterialCommunityIcons.backspace_outline,
+                  size: buttonTextSize,
+                  color: Colors.black12,
                 )),
           ],
         ),

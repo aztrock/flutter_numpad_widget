@@ -89,6 +89,14 @@ class NumpadController with ChangeNotifier {
         defaultHintText = '----';
         maxRawLength = 4;
         break;
+      case NumpadFormat.PIN6:
+        defaultHintText = '';
+        maxRawLength = 6;
+        break;
+      case NumpadFormat.COMPANYCODE:
+        defaultHintText = '';
+        maxRawLength = 4;
+        break;
     }
     _formattedString = hintText ?? defaultHintText;
   }

@@ -10,6 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_neumorphic: #^3.0.1
+    path: ../../forks/flutter-neumorphic
+  flutter_icons: ^1.1.0
+
 
 dev_dependencies:
   flutter_test:

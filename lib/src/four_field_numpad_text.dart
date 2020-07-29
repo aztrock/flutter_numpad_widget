@@ -3,30 +3,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import 'numpad_controller.dart';
 
-///Wraps a [Text] widget and automatically listens and reacts to
-///changes in a [NumpadController].
-///
-///Also provides an optional error animation that can be initiated by the
-///[NumpadController].
-///
-///The simplest way to use this widget is just to call it and pass in a
-///[NumpadController] that is associated with a [Numpad]. It is recommended
-///that you also supply a TextStyle with a monospaced font (for smoother masked
-///formatting), and a desired fontSize.
-///
-/// ```dart
-/// final NumpadController _controller;
-///
-/// ...
-///
-/// Widget _buildNumpadText(context) {
-///   return NumpadText(
-///     controller:  _controller,
-///     style: TextStyle(fontFamily: 'RobotoMono', fontSize: 40),
-///   );
-/// }
-/// ```
-class NumpadText extends StatefulWidget {
+class FourFieldNumpadText extends StatefulWidget {
   ///The [NumpadController] this NumpadText shares with its parent Numpad.
   final NumpadController controller;
 
@@ -43,7 +20,7 @@ class NumpadText extends StatefulWidget {
 
   final isObscureText;
 
-  NumpadText({
+  FourFieldNumpadText({
     @required this.controller,
     this.style,
     this.textAlign = TextAlign.center,
@@ -53,10 +30,10 @@ class NumpadText extends StatefulWidget {
   });
 
   @override
-  _NumpadTextState createState() => _NumpadTextState();
+  _FourFieldNumpadTextState createState() => _FourFieldNumpadTextState();
 }
 
-class _NumpadTextState extends State<NumpadText>
+class _FourFieldNumpadTextState extends State<FourFieldNumpadText>
     with SingleTickerProviderStateMixin {
   ///The text being currently displayed by this widget.
   String displayedText;
@@ -128,44 +105,44 @@ class _NumpadTextState extends State<NumpadText>
 
   final edges = EdgeInsets.symmetric(vertical: 5, horizontal: 8);
   final shape = NeumorphicBoxShape.roundRect(BorderRadius.circular(15));
+  final list = new List<int>.generate(4, (i) => i);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 75,
-          child: Neumorphic(
-            margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
-                style: NeumorphicStyle(
-                  depth: NeumorphicTheme.embossDepth(context),
-                  boxShape: shape,
-                ),
-                padding: edges,
-            child: SlideTransition(
-          position: _errorAnimation,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              for(var i in displayedText.split(''))
-               widget.isObscureText ?Neumorphic(
-                 child: SizedBox(height: 20, width: 20),
-                 style: NeumorphicStyle(
-                  boxShape: NeumorphicBoxShape.circle(),
-                  shape: NeumorphicShape.flat)
-                 ) :NeumorphicText(i,
-                 style: NeumorphicStyle(depth: 3, intensity: 0.7),
-                 textStyle: NeumorphicTextStyle(
-                    fontSize: 44
-                 ),),
-            ],)
-          // Text(
-          //   displayedText,
-          //   style: _getTextStyle(),
-          //   textAlign: widget.textAlign,
-          // ),
-        ),
-      ),
+    List items = <Widget>[];
+    final chars = displayedText.split('');
+
+    list.forEach((index) { 
+      items.add(
+        getBox(NeumorphicText(chars != null && chars.isNotEmpty && index < chars.length? chars[index] :'',
+          style: NeumorphicStyle(depth: 3, intensity: 0.7),
+          textStyle: NeumorphicTextStyle(
+          fontSize: 44
+        ))));
+    });
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: items
     );
   }
+
+getBox(Widget w){
+  return SizedBox(
+          height: 75,
+          width: 70,
+              child: Neumorphic(
+                margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
+                    style: NeumorphicStyle(
+                      depth: NeumorphicTheme.embossDepth(context),
+                      boxShape: shape,
+                    ),
+                    padding: edges,
+                child: SlideTransition(
+              position: _errorAnimation,
+              child: w
+            )));
+}
 
   @override
   void dispose() {

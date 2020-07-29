@@ -4,4 +4,6 @@ enum NumpadFormat {
   CURRENCY,
   PHONE,
   PIN4,
+  PIN6,
+  COMPANYCODE
 }

@@ -7,3 +7,4 @@ export './src/numpad.dart';
 export './src/numpad_controller.dart';
 export './src/numpad_text.dart';
 export './src/formatting/numpad_format.dart';
+export './src/four_field_numpad_text.dart';
