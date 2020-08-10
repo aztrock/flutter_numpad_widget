@@ -134,7 +134,11 @@ getBox(Widget w){
               child: Neumorphic(
                 margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
                     style: NeumorphicStyle(
-                      depth: NeumorphicTheme.embossDepth(context),
+                      // depth: NeumorphicTheme.embossDepth(context),
+                      depth: -4,
+                      intensity: 1,
+                      surfaceIntensity: 1,
+                      // lightSource: LightSource.left,
                       boxShape: shape,
                     ),
                     padding: edges,
