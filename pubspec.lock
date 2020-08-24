@@ -72,9 +72,11 @@ packages:
   flutter_neumorphic:
     dependency: "direct main"
     description:
-      path: "../flutter-neumorphic"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: d8a6aa8f9d7cf633dfdbd28ddd6f717521d7da18
+      url: "https://github.com/a43mrk/Flutter-Neumorphic.git"
+    source: git
     version: "3.0.1"
   flutter_test:
     dependency: "direct dev"
