@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_neumorphic: #^3.0.1
-    # path: ../../forks/flutter-neumorphic
+    # path: ../../forks/Flutter-Neumorphic
     git: https://github.com/a43mrk/Flutter-Neumorphic.git
   flutter_icons: ^1.1.0
 
