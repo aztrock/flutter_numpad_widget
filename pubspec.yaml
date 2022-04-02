@@ -14,7 +14,6 @@ dependencies:
     # path: ../../forks/Flutter-Neumorphic
     git:
       url: https://github.com/a43mrk/Flutter-Neumorphic.git
-      ref: master
   flutter_icons: ^1.1.0
 
 
