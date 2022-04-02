@@ -10,9 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_neumorphic: ^3.2.0
+  flutter_neumorphic: #^3.2.0
     # path: ../../forks/Flutter-Neumorphic
-    # git: https://github.com/a43mrk/Flutter-Neumorphic.git
+    git: https://github.com/a43mrk/Flutter-Neumorphic.git
   flutter_icons: ^1.1.0
 
 
