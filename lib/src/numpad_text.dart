@@ -43,14 +43,13 @@ class NumpadText extends StatefulWidget {
 
   final isObscureText;
 
-  NumpadText({
-    @required this.controller,
-    this.style,
-    this.textAlign = TextAlign.center,
-    this.animateError = false,
-    this.errorColor = Colors.red,
-    this.isObscureText = true
-  });
+  NumpadText(
+      {@required this.controller,
+      this.style,
+      this.textAlign = TextAlign.center,
+      this.animateError = false,
+      this.errorColor = Colors.red,
+      this.isObscureText = true});
 
   @override
   _NumpadTextState createState() => _NumpadTextState();
@@ -133,36 +132,37 @@ class _NumpadTextState extends State<NumpadText>
   Widget build(BuildContext context) {
     return SizedBox(
       height: 75,
-          child: Neumorphic(
-            margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
-                style: NeumorphicStyle(
-                  depth: NeumorphicTheme.embossDepth(context),
-                  boxShape: shape,
-                ),
-                padding: edges,
-            child: SlideTransition(
-          position: _errorAnimation,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              for(var i in displayedText.split(''))
-               widget.isObscureText ?Neumorphic(
-                 child: SizedBox(height: 20, width: 20),
-                 style: NeumorphicStyle(
-                  boxShape: NeumorphicBoxShape.circle(),
-                  shape: NeumorphicShape.flat)
-                 ) :NeumorphicText(i,
-                 style: NeumorphicStyle(depth: 3, intensity: 0.7),
-                 textStyle: NeumorphicTextStyle(
-                    fontSize: 44
-                 ),),
-            ],)
-          // Text(
-          //   displayedText,
-          //   style: _getTextStyle(),
-          //   textAlign: widget.textAlign,
-          // ),
+      child: Neumorphic(
+        margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
+        style: NeumorphicStyle(
+          depth: NeumorphicTheme.embossDepth(context),
+          boxShape: shape,
         ),
+        padding: edges,
+        child: SlideTransition(
+            position: _errorAnimation,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: displayedText.split('').map((i) {
+                return widget.isObscureText
+                    ? Neumorphic(
+                        child: SizedBox(height: 20, width: 20),
+                        style: NeumorphicStyle(
+                            boxShape: NeumorphicBoxShape.circle(),
+                            shape: NeumorphicShape.flat))
+                    : NeumorphicText(
+                        i,
+                        style: NeumorphicStyle(depth: 3, intensity: 0.7),
+                        textStyle: NeumorphicTextStyle(fontSize: 44),
+                      );
+              }).toList(),
+            )
+            // Text(
+            //   displayedText,
+            //   style: _getTextStyle(),
+            //   textAlign: widget.textAlign,
+            // ),
+            ),
       ),
     );
   }
