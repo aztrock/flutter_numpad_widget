@@ -65,9 +65,11 @@ packages:
   flutter_neumorphic:
     dependency: "direct main"
     description:
-      name: flutter_neumorphic
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: master
+      resolved-ref: "49a8edb762bb76dfd223438d2e4ecf6a1c2e8b8e"
+      url: "https://github.com/a43mrk/Flutter-Neumorphic.git"
+    source: git
     version: "3.2.0"
   flutter_test:
     dependency: "direct dev"
