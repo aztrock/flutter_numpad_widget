@@ -8,7 +8,7 @@ class FourFieldNumpadText extends StatefulWidget {
   final NumpadController controller;
 
   ///The style adopted by the Text portion of this widget.
-  final TextStyle style;
+  final TextStyle? style;
   final TextAlign textAlign;
 
   ///If true, the text will turn red, play a shaking animation, and clear itself
@@ -20,14 +20,13 @@ class FourFieldNumpadText extends StatefulWidget {
 
   final isObscureText;
 
-  FourFieldNumpadText({
-    @required this.controller,
-    this.style,
-    this.textAlign = TextAlign.center,
-    this.animateError = false,
-    this.errorColor = Colors.red,
-    this.isObscureText = true
-  });
+  FourFieldNumpadText(
+      {required this.controller,
+      this.style,
+      this.textAlign = TextAlign.center,
+      this.animateError = false,
+      this.errorColor = Colors.red,
+      this.isObscureText = true});
 
   @override
   _FourFieldNumpadTextState createState() => _FourFieldNumpadTextState();
@@ -36,12 +35,12 @@ class FourFieldNumpadText extends StatefulWidget {
 class _FourFieldNumpadTextState extends State<FourFieldNumpadText>
     with SingleTickerProviderStateMixin {
   ///The text being currently displayed by this widget.
-  String displayedText;
+  late String displayedText;
 
-  NumpadController _controller;
+  late NumpadController _controller;
 
-  AnimationController _errorAnimator;
-  Animation _errorAnimation;
+  late AnimationController _errorAnimator;
+  late Animation _errorAnimation;
   final _totalErrorShakes = 3;
   var _errorShakes = 0;
   bool _isErrorColor = false;
@@ -97,7 +96,7 @@ class _FourFieldNumpadTextState extends State<FourFieldNumpadText>
     }
   }
 
-  TextStyle _getTextStyle() {
+  TextStyle? _getTextStyle() {
     TextStyle style = TextStyle(
         fontFamily: 'RobotoMono', color: _isErrorColor ? Colors.red : null);
     return widget.style?.merge(style);
@@ -112,41 +111,38 @@ class _FourFieldNumpadTextState extends State<FourFieldNumpadText>
     List items = <Widget>[];
     final chars = displayedText.split('');
 
-    list.forEach((index) { 
-      items.add(
-        getBox(NeumorphicText(chars != null && chars.isNotEmpty && index < chars.length? chars[index] :'',
+    list.forEach((index) {
+      items.add(getBox(NeumorphicText(
+          chars != null && chars.isNotEmpty && index < chars.length
+              ? chars[index]
+              : '',
           style: NeumorphicStyle(depth: 3, intensity: 0.7),
-          textStyle: NeumorphicTextStyle(
-          fontSize: 44
-        ))));
+          textStyle: NeumorphicTextStyle(fontSize: 44))));
     });
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: items
-    );
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: items as List<Widget>);
   }
 
-getBox(Widget w){
-  return SizedBox(
-          height: 75,
-          width: 70,
-              child: Neumorphic(
-                margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
-                    style: NeumorphicStyle(
-                      // depth: NeumorphicTheme.embossDepth(context),
-                      depth: -4,
-                      intensity: 1,
-                      surfaceIntensity: 1,
-                      // lightSource: LightSource.left,
-                      boxShape: shape,
-                    ),
-                    padding: edges,
-                child: SlideTransition(
-              position: _errorAnimation,
-              child: w
-            )));
-}
+  getBox(Widget w) {
+    return SizedBox(
+        height: 75,
+        width: 70,
+        child: Neumorphic(
+            margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
+            style: NeumorphicStyle(
+              // depth: NeumorphicTheme.embossDepth(context),
+              depth: -4,
+              intensity: 1,
+              surfaceIntensity: 1,
+              // lightSource: LightSource.left,
+              boxShape: shape,
+            ),
+            padding: edges,
+            child: SlideTransition(
+                position: _errorAnimation as Animation<Offset>, child: w)));
+  }
 
   @override
   void dispose() {

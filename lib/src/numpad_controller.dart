@@ -12,28 +12,28 @@ class NumpadController with ChangeNotifier {
 
   ///The maximum number of digits a user is allowed to enter based on the
   ///[NumpadFormat] used with this controller.
-  int maxRawLength;
+  late int maxRawLength;
 
   ///Optional text to be shown when the controller has not received any input,
   ///or after the input has been cleared.
-  String hintText;
+  String? hintText;
 
   ///The hint text that will be shown if [hintText] is null, based on the
   ///[NumpadFormat] used with this controller.
-  String defaultHintText;
+  late String defaultHintText;
 
   ///Simple validation. True if [rawString.length] is equal to [maxRawLength].
-  bool inputValid;
+  late bool inputValid;
 
-  int _rawNumber;
+  int? _rawNumber;
   get rawNumber => _rawNumber;
 
-  String _rawString;
+  String? _rawString;
   get rawString => _rawString;
 
-  String _formattedString;
+  late String _formattedString;
 
-  _setFormattedString(String value) {
+  _setFormattedString(String? value) {
     _formattedString = value ?? hintText ?? defaultHintText;
     notifyListeners();
   }
@@ -54,9 +54,9 @@ class NumpadController with ChangeNotifier {
   ///}
   /// //...
   ///```
-  ValidInputCallback onInputValidChange;
+  ValidInputCallback? onInputValidChange;
 
-  VoidCallback _onErrorResetRequest;
+  VoidCallback? _onErrorResetRequest;
 
   void setErrorResetListener(VoidCallback listener) {
     this._onErrorResetRequest = listener;
@@ -111,8 +111,8 @@ class NumpadController with ChangeNotifier {
         }
         break;
       case -1: //Backspace
-        if (_rawString != null && _rawString.length > 1) {
-          _rawString = _rawString.substring(0, _rawString.length - 1);
+        if (_rawString != null && _rawString!.length > 1) {
+          _rawString = _rawString!.substring(0, _rawString!.length - 1);
         } else {
           _rawString = null;
         }
@@ -123,9 +123,9 @@ class NumpadController with ChangeNotifier {
         break;
       default:
         if (_rawString != null) {
-          if (_rawString.length < maxRawLength) {
-            _rawString += input.toString();
-            if (_rawString.length == maxRawLength &&
+          if (_rawString!.length < maxRawLength) {
+            _rawString = _rawString! + input.toString();
+            if (_rawString!.length == maxRawLength &&
                 format != NumpadFormat.CURRENCY) {
               inputValid = true;
               onInputValidChange?.call(inputValid);
@@ -147,8 +147,8 @@ class NumpadController with ChangeNotifier {
       _rawNumber = null;
       _setFormattedString(null);
     } else {
-      _rawNumber = num.tryParse(_rawString);
-      _setFormattedString(formatRawString(_rawString, format));
+      _rawNumber = int.tryParse(_rawString!);
+      _setFormattedString(formatRawString(_rawString!, format));
     }
   }
 

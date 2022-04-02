@@ -15,7 +15,7 @@ class Numpad extends StatelessWidget {
 
   ///Size of the text on the buttons in the numpad grid.
   final double buttonTextSize;
-  final Color buttonColor;
+  final Color? buttonColor;
   final Color textColor;
   final double height;
   final double width;
@@ -23,8 +23,8 @@ class Numpad extends StatelessWidget {
   final isClearButtonEnabled;
 
   Numpad({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
     this.buttonColor,
     this.textColor = const Color.fromARGB(255, 140, 151, 161),
     this.innerPadding = 4,
@@ -38,9 +38,9 @@ class Numpad extends StatelessWidget {
     return EdgeInsets.all(innerPadding);
   }
 
-  Widget _buildNumButton({BuildContext context, int displayNum, Icon icon}) {
+  Widget _buildNumButton({BuildContext? context, int? displayNum, Icon? icon}) {
     Widget effectiveChild;
-    int passNum = displayNum;
+    int? passNum = displayNum;
     if (icon != null) {
       effectiveChild = icon;
     } else {
@@ -65,7 +65,7 @@ class Numpad extends StatelessWidget {
             // shape: NeumorphicShape.concave
           ),
           // color: buttonColor,
-          onPressed: () => controller.parseInput(passNum),
+          onPressed: () => controller.parseInput(passNum!),
         ),
       ),
     );
@@ -93,15 +93,17 @@ class Numpad extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            isClearButtonEnabled 
-            ?_buildNumButton(
-                context: context,
-                displayNum: -2,
-                icon: Icon(
-                  Icons.clear,
-                  size: buttonTextSize,
-                ))
-            :Expanded(child: Container(),),
+            isClearButtonEnabled
+                ? _buildNumButton(
+                    context: context,
+                    displayNum: -2,
+                    icon: Icon(
+                      Icons.clear,
+                      size: buttonTextSize,
+                    ))
+                : Expanded(
+                    child: Container(),
+                  ),
             _buildNumButton(context: context, displayNum: 0),
             _buildNumButton(
                 context: context,

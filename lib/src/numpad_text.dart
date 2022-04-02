@@ -31,7 +31,7 @@ class NumpadText extends StatefulWidget {
   final NumpadController controller;
 
   ///The style adopted by the Text portion of this widget.
-  final TextStyle style;
+  final TextStyle? style;
   final TextAlign textAlign;
 
   ///If true, the text will turn red, play a shaking animation, and clear itself
@@ -44,7 +44,7 @@ class NumpadText extends StatefulWidget {
   final isObscureText;
 
   NumpadText(
-      {@required this.controller,
+      {required this.controller,
       this.style,
       this.textAlign = TextAlign.center,
       this.animateError = false,
@@ -58,12 +58,12 @@ class NumpadText extends StatefulWidget {
 class _NumpadTextState extends State<NumpadText>
     with SingleTickerProviderStateMixin {
   ///The text being currently displayed by this widget.
-  String displayedText;
+  late String displayedText;
 
-  NumpadController _controller;
+  late NumpadController _controller;
 
-  AnimationController _errorAnimator;
-  Animation _errorAnimation;
+  late AnimationController _errorAnimator;
+  late Animation _errorAnimation;
   final _totalErrorShakes = 3;
   var _errorShakes = 0;
   bool _isErrorColor = false;
@@ -122,7 +122,7 @@ class _NumpadTextState extends State<NumpadText>
   TextStyle _getTextStyle() {
     TextStyle style = TextStyle(
         fontFamily: 'RobotoMono', color: _isErrorColor ? Colors.red : null);
-    return widget.style?.merge(style);
+    return widget.style!.merge(style);
   }
 
   final edges = EdgeInsets.symmetric(vertical: 5, horizontal: 8);
@@ -140,7 +140,7 @@ class _NumpadTextState extends State<NumpadText>
         ),
         padding: edges,
         child: SlideTransition(
-            position: _errorAnimation,
+            position: _errorAnimation as Animation<Offset>,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: displayedText.split('').map((i) {
