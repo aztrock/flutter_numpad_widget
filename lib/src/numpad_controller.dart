@@ -23,7 +23,7 @@ class NumpadController with ChangeNotifier {
   late String defaultHintText;
 
   ///Simple validation. True if [rawString.length] is equal to [maxRawLength].
-  late bool inputValid;
+  bool? inputValid;
 
   int? _rawNumber;
   get rawNumber => _rawNumber;
@@ -107,7 +107,7 @@ class NumpadController with ChangeNotifier {
         _rawString = null;
         if (inputValid == true) {
           inputValid = false;
-          onInputValidChange?.call(inputValid);
+          onInputValidChange?.call(inputValid!);
         }
         break;
       case -1: //Backspace
@@ -118,7 +118,7 @@ class NumpadController with ChangeNotifier {
         }
         if (inputValid == true) {
           inputValid = false;
-          onInputValidChange?.call(inputValid);
+          onInputValidChange?.call(inputValid!);
         }
         break;
       default:
@@ -128,7 +128,7 @@ class NumpadController with ChangeNotifier {
             if (_rawString!.length == maxRawLength &&
                 format != NumpadFormat.CURRENCY) {
               inputValid = true;
-              onInputValidChange?.call(inputValid);
+              onInputValidChange?.call(inputValid!);
             }
           }
         } else {
@@ -138,7 +138,7 @@ class NumpadController with ChangeNotifier {
           _rawString = input.toString();
           if (format == NumpadFormat.CURRENCY) {
             inputValid = true;
-            onInputValidChange?.call(inputValid);
+            onInputValidChange?.call(inputValid!);
           }
         }
         break;
