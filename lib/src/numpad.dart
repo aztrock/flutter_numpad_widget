@@ -27,7 +27,7 @@ class Numpad extends StatelessWidget {
     required this.controller,
     this.buttonColor,
     this.textColor = const Color.fromARGB(255, 140, 151, 161),
-    this.innerPadding = 4,
+    this.innerPadding = 2,
     this.buttonTextSize = 30,
     this.height = double.infinity,
     this.width = double.infinity,
@@ -45,9 +45,12 @@ class Numpad extends StatelessWidget {
       effectiveChild = icon;
     } else {
       effectiveChild = Center(
-        child: Text(
-          displayNum.toString(),
-          style: TextStyle(fontSize: buttonTextSize, color: textColor),
+        child: FittedBox(
+          fit: BoxFit.fitHeight,
+          child: Text(
+            displayNum.toString(),
+            style: TextStyle(fontSize: buttonTextSize, color: textColor),
+          ),
         ),
       );
     }
