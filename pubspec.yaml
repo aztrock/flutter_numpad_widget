@@ -15,8 +15,7 @@ dependencies:
     git:
       url: https://github.com/a43mrk/Flutter-Neumorphic.git
       ref: v3.2.0m
-  flutter_icons: ^1.1.0
-
+  flutter_feather_icons: ^2.3.0
 
 dev_dependencies:
   flutter_test:

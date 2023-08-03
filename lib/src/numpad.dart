@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'numpad_controller.dart';
 
 ///A grid of evenly spaced buttons with the numbers 0 through 9, as well as
@@ -112,7 +111,7 @@ class Numpad extends StatelessWidget {
                 context: context,
                 displayNum: -1,
                 icon: Icon(
-                  MaterialCommunityIcons.backspace_outline,
+                  FeatherIcons.backspace_outline,
                   size: buttonTextSize,
                   color: Colors.black12,
                 )),
